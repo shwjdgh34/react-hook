@@ -1,3 +1,18 @@
+import React from 'react';
+import './App.scss';
+import Growth from './pages/Growth';
+import Clock from './pages/Clock';
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <Clock />
+        {/* <Growth /> */}
+      </header>
+    </div>
+  );
+}
+export default App;
 // import React, { useState } from 'react';
 // import './App.scss';
 // import NameTag from './component/nameTag';
@@ -87,23 +102,25 @@
 
 // export default App;
 
-import React, { useState, useEffect } from 'react';
+// ///////// useEffect
+// import React, { useState, useEffect } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0);
+// function App() {
+//   const [count, setCount] = useState(0);
 
-  // Similar to componentDidMount and componentDidUpdate:
-  useEffect(() => {
-    // Update the document title using the browser API
-    document.title = `You clicked ${count} times`;
-  });
+//   // Similar to componentDidMount and componentDidUpdate:
+//   useEffect(() => {
+//     // Update the document title using the browser API
+//     document.title = `You clicked ${count} times`;
+//   });
 
-  return (
-    <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <p>You clicked {count} times</p>
+//       <button onClick={() => setCount(count + 1)}>Click me</button>
+//     </div>
+//   );
+// }
 
-export default App;
+// export default App;
+//////////////////////////
