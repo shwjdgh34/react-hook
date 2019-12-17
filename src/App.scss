@@ -49,3 +49,8 @@ $bg-color: #282c34;
   color: yellow;
   border-color: yellow;
 }
+.grow {
+  height: 50px;
+  width: 200px;
+  font-size: calc(10px + 2vmin);
+}
