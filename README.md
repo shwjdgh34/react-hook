@@ -1,68 +1,103 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React-Hooks
 
-## Available Scripts
+# TOC
 
-In the project directory, you can run:
+## Get started
 
-### `yarn start`
+### Commands for this project
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```sh
+npx create-react-app react-hook
+npm start
+npm install node-sass
+```
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## useEffect
 
-### `yarn test`
+- Use <b>useEffect()</b> instead of componentDidMount(), componentDidUpdate() and componentWillUnmount()
+- if you wanna use shouldComponentUpdate(), take <b>useMemo()</b>.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```javascript
+useEffect(() => {}); // excuted at every mount.
+useEffect(() => {}, []); // excuted only at initial mount.
+useEffect(() => {}, [anyState]); // excuted when 'anyState' has been changed.
+```
 
-### `yarn build`
+### Growth
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```javascript
+useEffect(() => {
+  if (nonoTitle) {
+    document.title = 'nonononono';
+    console.log('set nono title');
+  }
+}, [nonoTitle]);
+useEffect(() => {
+  console.log('first mount');
+}, []);
+useEffect(() => {
+  console.log('learning and growing');
+  if (growth > 70) {
+    setNonoTitle(true);
+  }
+}, [growth]);
+const growthHandle = () => {
+  setGrowth(growth + 10);
+  // 여기에 해당 if문을 작성하면, setGrowth(growth + 10); 이 문장이 바로 적용 안된 상태에서 growth를 판별하기 때문에 원하는 결과를 얻을 수 없다.
+  // if (growth > 70) setNonoTitle(true);
+};
+```
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+> ❗️️Caution❗️ hanler 함수에서 setGrowth(growth + 10)를 하더라도 아직 반영되지 않는 상태이므로 해당 함수 내에서 growth는 아직 update되지 않는 상태이다. 하지만, useEffect()는 update('render')된 이후에 실행되기 때문에 이곳에서 원하는 작업을 수행하면 될 것이다. 자주 일어나는 실수!!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Clock
 
-### `yarn eject`
+[reactjs.org/cleaning-up-an-effect](https://reactjs.org/docs/hooks-reference.html#cleaning-up-an-effect)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```javascript
+const [time, setTime] = useState(Date);
+const [xy, setXY] = useState(initXY);
+// 3가지 방법 다 가능한데, 내생각에 이 방법이 제일 안전한 것 같다.
+// 만약 3번째 방법에서 return 으로 clearInterval()을 해주지 않으면 setInterval API가 굉장히 많이 호출되는 문제가 생긴다.
+//3 번째 방법이 best practice인 듯 싶다.
+useEffect(() => {
+  setInterval(() => {
+    setTime(Date);
+  }, 1000);
+}, []);
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+setInterval(() => {
+  setTime(Date);
+}, 1000);
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+useEffect(() => {
+  const intervalHandle = setInterval(() => {
+    setTime(Date);
+  }, 1000);
+  return () => {
+    clearInterval(intervalHandle);
+  };
+});
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+const mousemoveHandle = e => {
+  setXY({
+    x: e.clientX,
+    y: e.clientY
+  });
+};
+useEffect(() => {
+  console.log('tick');
+});
+// if dont add second arg, [], component update될때마다 window.addEventListener()를 새로 실행시켜서 굉장히 많이 실행된다.
+// 한번만 실행해놔도 listen을 하고 있기 때문에 처음 component가 mount될 때만 실행시켜 줘야 한다.
+useEffect(() => {
+  window.addEventListener('mousemove', mousemoveHandle);
+}, []);
+// 위의 코드 대신 아래 코드로 대체 가능하다.
+useEffect(() => {
+  window.addEventListener('mousemove', mousemoveHandle);
+  return () => {
+    window.removeEventListener('mousemove', mousemoveHandle);
+  };
+});
+```
