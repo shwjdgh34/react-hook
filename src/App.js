@@ -2,12 +2,16 @@ import React from 'react';
 import './App.scss';
 import Growth from './pages/Growth';
 import Clock from './pages/Clock';
+import MyGit from './pages/MyGit';
 function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <MyGit />
+        {/*
+        
         <Clock />
-        {/* <Growth /> */}
+        <Growth /> */}
       </header>
     </div>
   );
@@ -15,7 +19,7 @@ function App() {
 export default App;
 // import React, { useState } from 'react';
 // import './App.scss';
-// import NameTag from './component/nameTag';
+// import NameTag from './components/nameTag';
 
 // const nameList = [
 //   { name: 'nono', country: 'Korea' },
