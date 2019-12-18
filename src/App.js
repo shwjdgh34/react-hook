@@ -1,5 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  NavLink
+} from 'react-router-dom';
 import './App.scss';
 import Growth from './pages/Growth';
 import Clock from './pages/Clock';
@@ -11,21 +16,56 @@ function App() {
     <Router>
       <div className="App">
         <header className="App-header">
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
+          <ul className="ul-style">
+            <li className="li-style">
+              <NavLink
+                exact
+                className="App-link"
+                to="/"
+                activeClassName="active-link"
+              >
+                Home
+              </NavLink>
             </li>
-            <li>
-              <Link to="/clock">Clock</Link>
+            <li className="li-style">
+              <NavLink
+                exact
+                className="App-link"
+                to="/clock"
+                activeClassName="active-link"
+              >
+                Clock
+              </NavLink>
             </li>
-            <li>
-              <Link to="/nametag">NameTag</Link>
+            <li className="li-style">
+              <NavLink
+                exact
+                className="App-link"
+                to="/nametag"
+                activeClassName="active-link"
+              >
+                NameTag
+              </NavLink>
             </li>
-            <li>
-              <Link to="/mygit">MyGit</Link>
+            <li className="li-style">
+              <NavLink
+                exact
+                className="App-link"
+                to="/mygit"
+                activeClassName="active-link"
+              >
+                MyGit
+              </NavLink>
             </li>
-            <li>
-              <Link to="/growth">Growth</Link>
+            <li className="li-style">
+              <NavLink
+                exact
+                className="App-link"
+                to="/growth"
+                activeClassName="active-link"
+              >
+                Growth
+              </NavLink>
             </li>
           </ul>
 

@@ -25,10 +25,6 @@ $bg-color: #282c34;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -58,4 +54,20 @@ $bg-color: #282c34;
   margin-top: 10px;
   height: 20px;
   width: 100px;
+}
+.App-link {
+  color: #61dafb;
+}
+
+.active-link {
+  color: green;
+}
+
+.ul-style {
+  display: flex;
+  flex-direction: row;
+}
+.li-style {
+  width: 100px;
+  list-style-type: none;
 }

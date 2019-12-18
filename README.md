@@ -7,7 +7,8 @@
 ```sh
 npx create-react-app react-hook
 npm start
-npm install node-sass
+npm install node-sass --save
+npm install react-router-dom --save
 ```
 
 ## useEffect
