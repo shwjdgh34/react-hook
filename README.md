@@ -4,8 +4,6 @@
 
 ## Get started
 
-### Commands for this project
-
 ```sh
 npx create-react-app react-hook
 npm start
