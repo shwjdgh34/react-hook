@@ -18,6 +18,9 @@ function MyGit() {
     console.log(newGitInFo);
     setGitInfo(newGitInFo);
   };
+  const keyPressHandle = e => {
+    if (e.key === 'Enter') fetchHandle();
+  };
   return (
     <>
       <h1>useEffect, Fetch</h1>
@@ -30,6 +33,7 @@ function MyGit() {
         value={userID}
         name="nono"
         onChange={getUserIdHandle}
+        onKeyPress={keyPressHandle}
       ></input>
       <button className="fetch-button" onClick={fetchHandle}>
         fetch
