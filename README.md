@@ -9,6 +9,7 @@ npx create-react-app react-hook
 npm start
 npm install node-sass --save
 npm install react-router-dom --save
+npm install redux react-redux --save
 ```
 
 ## useEffect
@@ -104,6 +105,7 @@ useEffect(() => {
 ### MyGit
 
 - fetch
+  API IP Address: <https://api.github.com/users/shwjdgh34>
 
 ```javascript
 const fetchHandler = async () => {
