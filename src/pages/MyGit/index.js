@@ -8,19 +8,25 @@ const initGit = {
 function MyGit() {
   const [gitInfo, setGitInfo] = useState(initGit);
   const [userID, setUserID] = useState('');
-  const getUserIdHandler = e => {
-    setUserID(e.target.value);
-  };
-  const fetchHandler = async () => {
-    const data = await fetch(`https://api.github.com/users/${userID}`);
-    const { login, public_repos, followers } = await data.json();
-    const newGitInFo = { login, public_repos, followers };
-    console.log(newGitInFo);
-    setGitInfo(newGitInFo);
-  };
+  const [url, setUrl] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
   const keyPressHandler = e => {
-    if (e.key === 'Enter') fetchHandler();
+    if (e.key === 'Enter') setUrl(`https://api.github.com/users/${userID}`);
   };
+
+  useEffect(() => {
+    const fetchHandler = async () => {
+      console.log('first mount');
+      setIsLoading(true);
+      const data = await fetch(url);
+      const { login, public_repos, followers } = await data.json();
+      const newGitInFo = { login, public_repos, followers };
+      setGitInfo(newGitInFo);
+      setIsLoading(false);
+    };
+    if (url) fetchHandler();
+  }, [url]);
 
   useEffect(() => {
     window.addEventListener('keypress', keyPressHandler);
@@ -32,18 +38,29 @@ function MyGit() {
   return (
     <>
       <h1>useEffect, Fetch</h1>
-      <h2>userID: {gitInfo.login}</h2>{' '}
-      <h2>public_repos: {gitInfo.public_repos}</h2>
-      <h2> followers: {gitInfo.followers}</h2>
+
+      {isLoading ? (
+        <div>fucking loading...</div>
+      ) : (
+        <div>
+          <h2>userID: {gitInfo.login}</h2>{' '}
+          <h2>public_repos: {gitInfo.public_repos}</h2>
+          <h2> followers: {gitInfo.followers}</h2>
+        </div>
+      )}
+
       <span>Write Git User ID</span>
       <input
         type="text"
         value={userID}
         name="nono"
-        onChange={getUserIdHandler}
+        onChange={e => setUserID(e.target.value)}
         //onKeyPress={keyPressHandler}
       ></input>
-      <button className="fetch-button" onClick={fetchHandler}>
+      <button
+        className="fetch-button"
+        onClick={() => setUrl(`https://api.github.com/users/${userID}`)}
+      >
         fetch
       </button>
     </>
