@@ -99,3 +99,28 @@ useEffect(() => {
   };
 });
 ```
+
+### MyGit
+
+- fetch
+
+```javascript
+const fetchHandler = async () => {
+  const data = await fetch(`https://api.github.com/users/${userID}`);
+  const { login, public_repos, followers } = await data.json();
+  const newGitInFo = { login, public_repos, followers };
+  console.log(newGitInFo);
+  setGitInfo(newGitInFo);
+};
+```
+
+- EventListener('keypress')
+
+```js
+useEffect(() => {
+  window.addEventListener('keypress', keyPressHandler);
+  return () => {
+    window.removeEventListener('keypress', keyPressHandler);
+  };
+});
+```
